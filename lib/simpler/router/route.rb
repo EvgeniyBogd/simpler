@@ -20,15 +20,18 @@ module Simpler
     private
  
       def set_params(path)
-        path_element = path.split('/') 
-        request_element = @path.split('/') 
-      
+        path_element = path.split('/').reject!(&:empty?)
+        request_element = @path.split('/').reject!(&:empty?)
+        
+        return false if path_element.size != request_element.size
+
         path_element.each_with_index do |element, index|
           if element.start_with?(':')
-            param_name = element.gsub(':', '').to_sym
-            @params[param_name] = request_element[index]
-          end
+            @params[element] = request_element[index]
+          end  
         end
+        
+        
       end  
     end
   end
