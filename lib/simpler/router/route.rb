@@ -20,8 +20,8 @@ module Simpler
     private
  
       def set_params(path)
-        path_element = path.split('/').reject!(&:empty?)
-        request_element = @path.split('/').reject!(&:empty?)
+        path_element = path.split('/')
+        request_element = @path.split('/')
         
         return false if path_element.size != request_element.size
 
